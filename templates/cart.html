@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+</head>
+<body>
+    <main class="main-container"><section class="hero-section">
+          <h1 class="hero-heading">
+            <span class="highlight highlight-secondary">Our beautiful</span
+            >
+            Cart
+          </h1>
+        </section><section class="empty-state"><p class="eyebrow">Your collection</p><h2>Your cart is waiting</h2><p>Save something special here when you find it.</p><a class="btn btn-primary" href="{% url 'eccom_home:main' %}">Continue shopping</a></section></main>
+    
+</body>
+</html>

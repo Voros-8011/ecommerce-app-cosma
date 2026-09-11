@@ -1,0 +1,13 @@
+@import url('main.css');
+
+@media (max-width: 700px) {
+  .main-container, .main-con, .container { width: min(92%, 56rem); }
+  .img-con { height: 24rem; }
+  .main-con .img-con { height: 28rem; }
+}
+
+@media (max-width: 420px) {
+  .hero-heading { font-size: clamp(3.4rem, 13vw, 5rem); }
+  .navbar { padding: 1.2rem; }
+  .ul { gap: .5rem; }
+}

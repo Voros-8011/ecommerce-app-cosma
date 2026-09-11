@@ -1,0 +1,5 @@
+@import url('main.css');
+
+body { min-height: 100vh; }
+.main-container { padding-top: 5rem; }
+.main-container > .back-link, .main-container + .back-link { display: inline-block; margin-top: 2rem; color: var(--leaf); font-weight: 700; }

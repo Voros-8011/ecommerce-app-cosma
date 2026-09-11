@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login | Cosma</title><link rel="stylesheet" href="{% static 'css/main.css' %}"></head>
+<body><main class="auth-shell"><section class="card auth-card"><h1>Welcome back</h1>
+{% if form.errors %}
+<div>Your username or password didn't match.</div>
+{% endif %}
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <input type="hidden" name="next" value="{{ next }}" />
+  <button type="submit">Login</button>
+</form>
+
+<a class="form-link" href="{% url 'eccom_home:main' %}">Back to main page</a></section></main></body></html>

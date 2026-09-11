@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your product | Cosma</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsive-desighn-earea.css' %}">
+</head>
+<body>
+  {% with main=product|default:object %}
+  <main class="main-con detail-page">
+    <a class="back-link" href="{% url 'vendor:all' %}">Back to your products</a>
+    <div class="content_con detail-card">
+      <div class="detail-media img-con">
+        {% if main.prod_img %}<img class="img-o1" src="{{ main.prod_img.url }}" alt="{{ main.prod_desc }}">{% else %}<p>No image available</p>{% endif %}
+      </div>
+      <div class="detail-copy">
+        <p class="eyebrow">Seller inventory</p>
+        <h1>{{ main.prod_name }}</h1>
+        <p class="desc">{{ main.prod_desc }}</p>
+        <p class="pric">{{ main.prod_price }}</p>
+        <p class="qunti">Quantity: <span class="weee">{{ main.prod_qunt }}</span></p>
+      </div>
+    </div>
+  </main>
+  {% endwith %}
+</body>
+</html>

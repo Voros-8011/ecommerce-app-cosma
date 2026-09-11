@@ -1,0 +1,11 @@
+
+{% load static %}
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Vendor registration | Cosma</title><link rel="stylesheet" href="{% static 'css/main.css' %}"></head><body><main class="auth-shell"><section class="card auth-card"><h2>Become a Cosma seller</h2>
+<form method="post">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Sign Up</button>
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+<a class="form-link" href="{% url 'eccom_home:main' %}">back to main page</a></section></main></body></html>
+

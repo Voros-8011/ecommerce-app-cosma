@@ -1,0 +1,9 @@
+{% load static %}
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Create product | Cosma</title><link rel="stylesheet" href="{% static 'css/main.css' %}"></head><body><main class="container card">
+  <p class="eyebrow">Seller workspace</p><h1>Create a product</h1>
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ form.as_p }}
+    <div class="page-actions"><button type="submit" class="btn btn-primary">Publish product</button>
+    <a class="btn btn-secondary" href="{% url 'vendor:all' %}">Cancel</a></div>
+  </form>
+</main></body></html>

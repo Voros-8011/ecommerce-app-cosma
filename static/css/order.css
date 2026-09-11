@@ -1,0 +1,12 @@
+@import url('main.css');
+
+.main-con { min-height: 100vh; }
+.content_con > h1 { max-width: 62rem; }
+.content_con > div { margin-top: 2.5rem; }
+.content_con .main-container { background: transparent; }
+.content_con .back-link, .content_con > div > a { display: inline-block; margin-top: 2rem; color: var(--leaf); font-weight: 700; }
+.order-card { max-width: 100rem; }
+.order-card > .back-link { margin: 0 0 3rem; }
+.order-summary { padding: 2.4rem; background: var(--surface-tint); border-radius: 12px; }
+.order-summary .img-con { height: 30rem; border-radius: 10px; }
+.order-summary .text-con { padding: 1rem 0; }

@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cosma</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/responsive-desighn-earea.css' %}" />
+  </head>
+  <body>
+    <div class="main-container">
+      <header class="Header">
+        <!-- NAVIGATION -->
+        <nav class="navbar">
+          <div class="img-section-nav">
+            <a class="beta" href="{% url 'eccom_home:main' %}"
+              >
+            </a>
+          </div>
+          <div class="list-section-nav">
+            <ul class="ul">
+
+              {% if user.is_authenticated %}
+        
+                    <li>
+                <a class="btn btn-primarry-imty" href="{% url 'logout' %}">logout</a>
+              </li>
+              <li class="cart-con"></li>
+              {% else %}
+              <li>
+                <a class="btn btn-primarry-imty" href="{% url 'login' %}">Login</a>
+              </li>
+              <li>
+                <a class="btn btn-primarry" href="{% url 'accounts:sign_up' %}">Register</a>
+              </li>
+              <li>
+                <a class="btn btn-primarry" href="{% url 'accounts:vendor_register' %}">colaberate with us</a>
+              </li>
+              <li>
+                <a class="btn btn-primarry" href="{% url 'accounts:vendor_login' %}">login</a>
+              </li>
+              {% endif %}
+
+              {% if user.is_authenticated and user.role == 'vendor' %}
+              <li>
+                <a class="btn btn-primarry" href="{% url 'vendor:all' %}">make item to sell</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+          <h1 class="hero-heading">
+            <span class="highlight highlight-secondary">Mindful living</span
+            ><br class="br-p" />
+            for the digital world 📱
+          </h1>
+        </section>
+
+        <!-- grosherys section -->
+
+        <section class="catalog-section">
+          <div class="section-heading"><p class="eyebrow">The collection</p><h2>Thoughtful picks for daily life</h2></div>
+          <div class="main-grid-gro">
+          {% for Prolist in plist %}
+          <div class="grid-item">
+            <a href="{% url 'eccom_home:showpro' Prolist.id %}">
+              <div class="img-con">
+                <img class="img-o1" src="{{ Prolist.prod_img.url }}" alt="{{ Prolist.prod_desc }}" />
+              </div>
+            </a>
+            <div class="text-con">
+              <p class="name">{{ Prolist.prod_name }}</p>
+              <p class="desc">{{ Prolist.prod_desc }}</p>
+              <p class="pric">price: {{ Prolist.prod_price }}</p>
+              <a class="order_btn" href="{% url 'orders:order' Prolist.id %}">order</a>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
+        </section>
+
+        <footer class="site-footer"><span>Cosma</span><p>Everyday objects, considered carefully.</p></footer>
+
+    </div>
+        
+ </body>
+</html>

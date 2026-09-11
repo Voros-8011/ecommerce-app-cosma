@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your products | Cosma</title><link rel="stylesheet" href="{% static 'css/main.css' %}"></head><body><main class="container">
+  <p class="eyebrow">Seller workspace</p><h1>Your products</h1>
+  {% if vendor_list %}
+  <ul>
+    {% for vendor in vendor_list %}
+    <li>
+      {% if vendor.owner == user %}
+      <a href="{% url 'vendor:vendor_detail' vendor.id %}">{{vendor.prod_name}}</a>
+      (<a
+        href="{% url 'vendor:vendor_update' vendor.id %}"
+        >Edit</a
+      >
+      | <a href="{% url 'vendor:vendor_delete' vendor.id %}">Delete</a>) 
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty-state">There are no items in the database yet.</p>
+  {% endif %}
+
+  <div class="page-actions">
+    <a href="{% url 'vendor:vendor_creat' %}" class="btn btn-primary"
+      >Create an Item to sell</a
+    >
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}?next={% url 'vendor:all' %}" class="btn"
+      >logout</a
+    >
+    <a href="{% url 'login' %}?next={% url 'vendor:all' %}" class="btn"
+      >login</a
+    >
+    {% endif %}
+    <a href="{% url 'eccom_home:main' %}">back to main</a>
+  </div>
+</main></body></html>

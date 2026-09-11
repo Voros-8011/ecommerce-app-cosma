@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>order</title>
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+</head>
+<body>
+<main class="main-con">
+    <div class="content_con order-card">
+        <a class="back-link" href="{% url 'eccom_home:main' %}">Back to shop</a>
+        <p class="eyebrow">Ready when you are</p>
+        <h1>Complete your order</h1>
+        <div>
+            {% with main=product %}
+  <div class="main-container order-summary">
+    <div class="img-con">
+      {% if main.prod_img %}
+      <img class="img-o1" src="{{ main.prod_img.url }}" alt="{{ main.prod_desc }}"/>
+      {% else %}
+      <p>No image available</p>
+      {% endif %}
+    </div>
+    <div class="text-con">
+      <p class="name">name: <span class="weee">{{ main.prod_name }}</span></p>
+      <p class="desc">descreption: <span class="weee">{{ main.prod_desc }}</span></p>
+      <p class="pric">price: <span class="weee">{{ main.prod_price }}</span></p>
+      <p class="qunti">quntity: <span class="weee">{{ main.prod_qunt }}</span></p>
+    </div>
+  </div>
+{% endwith %}
+        </div>
+    </div>
+</main>
+</body>
+</html>
+
+
