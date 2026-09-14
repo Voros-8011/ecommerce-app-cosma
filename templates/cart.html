@@ -1,20 +1,385 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+    <title>Your Cart | Cosma</title>
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <style>
+
+        /* -------------------------
+           Cart item
+        ------------------------- */
+
+        .cart-item {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+
+        /* -------------------------
+           Product image
+        ------------------------- */
+
+        .cart-item-image {
+            width: 180px;
+            height: 180px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        /* -------------------------
+           Product information
+        ------------------------- */
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-info h2 {
+            margin-bottom: 10px;
+        }
+
+
+        /* -------------------------
+           Quantity controls
+        ------------------------- */
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quantity-button {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .quantity-number {
+            min-width: 25px;
+            text-align: center;
+        }
+
+
+        /* -------------------------
+           Remove button
+        ------------------------- */
+
+        .remove-button {
+            display: inline-block;
+            margin-top: 12px;
+            color: #a00000;
+            text-decoration: none;
+        }
+
+
+        /* -------------------------
+           Cart summary
+        ------------------------- */
+
+        .cart-summary {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #ddd;
+        }
+
+        .cart-total {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+
+        /* -------------------------
+           Cart actions
+        ------------------------- */
+
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-    <main class="main-container"><section class="hero-section">
-          <h1 class="hero-heading">
-            <span class="highlight highlight-secondary">Our beautiful</span
-            >
-            Cart
-          </h1>
-        </section><section class="empty-state"><p class="eyebrow">Your collection</p><h2>Your cart is waiting</h2><p>Save something special here when you find it.</p><a class="btn btn-primary" href="{% url 'eccom_home:main' %}">Continue shopping</a></section></main>
-    
+
+    <main class="main-container">
+
+
+        <!-- =========================
+             Page heading
+        ========================== -->
+
+        <section class="hero-section">
+
+            <h1 class="hero-heading">
+
+                <span class="highlight highlight-secondary">
+                    Your
+                </span>
+
+                Cart
+
+            </h1>
+
+        </section>
+
+
+
+        <!-- =========================
+             Cart
+        ========================== -->
+
+        {% if cart_items %}
+
+            <section class="cart-section">
+
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Your collection
+                    </p>
+
+                    <h2>
+                        Items you've chosen
+                    </h2>
+
+                </div>
+
+
+
+                <!-- =========================
+                     Cart items
+                ========================== -->
+
+                <div class="cart-list">
+
+                    {% for item in cart_items %}
+
+                        <article class="cart-item">
+
+
+                            <!-- Product image -->
+
+                            <div class="cart-item-image">
+
+                                <img
+                                    src="{{ item.product.prod_img.url }}"
+                                    alt="{{ item.product.prod_name }}"
+                                >
+
+                            </div>
+
+
+
+                            <!-- Product information -->
+
+                            <div class="cart-item-info">
+
+                                <h2>
+                                    {{ item.product.prod_name }}
+                                </h2>
+
+
+                                <p>
+                                    {{ item.product.prod_desc }}
+                                </p>
+
+
+                                <p>
+                                    Price:
+                                    {{ item.product.prod_price }}
+                                </p>
+
+
+                                <!-- Quantity -->
+
+                                <div class="quantity-controls">
+
+                                    <a
+                                        class="quantity-button"
+                                        href="{% url 'cart:decrease_quantity' item.id %}"
+                                    >
+                                        −
+                                    </a>
+
+
+                                    <span class="quantity-number">
+                                        {{ item.quantity }}
+                                    </span>
+
+
+                                    <a
+                                        class="quantity-button"
+                                        href="{% url 'cart:increase_quantity' item.id %}"
+                                    >
+                                        +
+                                    </a>
+
+                                </div>
+
+
+                                <!-- Item subtotal -->
+
+                                <p>
+
+                                    Subtotal:
+
+                                    {{ item.product.prod_price }}
+
+                                    ×
+
+                                    {{ item.quantity }}
+
+                                </p>
+
+
+                                <!-- Remove -->
+
+                                <a
+                                    class="remove-button"
+                                    href="#"
+                                >
+                                    Remove
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+
+
+                <!-- =========================
+                     Cart summary
+                ========================== -->
+
+                <div class="cart-summary">
+
+                    <p class="cart-total">
+                        Total:
+                        <!-- We'll calculate this properly in the view -->
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     Actions
+                ========================== -->
+
+                <div class="cart-actions">
+
+                    <a
+                        class="btn btn-primary"
+                        href="{% url 'eccom_home:main' %}"
+                    >
+                        Continue shopping
+                    </a>
+
+
+                    <!-- Checkout will be connected later -->
+
+                    <a
+                        class="btn btn-primary"
+                        href="#"
+                    >
+                        Checkout
+                    </a>
+
+                </div>
+
+
+            </section>
+
+
+
+        {% else %}
+
+
+            <!-- =========================
+                 Empty cart
+            ========================== -->
+
+            <section class="empty-state">
+
+                <p class="eyebrow">
+                    Your collection
+                </p>
+
+
+                <h2>
+                    Your cart is waiting
+                </h2>
+
+
+                <p>
+                    Save something special here when you find it.
+                </p>
+
+
+                <a
+                    class="btn btn-primary"
+                    href="{% url 'eccom_home:main' %}"
+                >
+                    Continue shopping
+                </a>
+
+            </section>
+
+
+        {% endif %}
+
+
+
+        <!-- Footer -->
+
+        <footer class="site-footer">
+
+            <span>
+                Cosma
+            </span>
+
+            <p>
+                Everyday objects, considered carefully.
+            </p>
+
+        </footer>
+
+
+    </main>
+
 </body>
+
 </html>

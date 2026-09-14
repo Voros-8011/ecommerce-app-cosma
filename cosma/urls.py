@@ -28,6 +28,7 @@ urlpatterns = [
     path('products/',include('products.urls',namespace='products'), ),
     path('vendor/',include('vendor.urls',namespace='vendor'), ),
     path('dashboured/',include('dashboured.urls',namespace='dashboured'), ),
+    path('cart/',include('cart.urls',namespace='cart'), ),
 ]
 
 # Serve media files during development
