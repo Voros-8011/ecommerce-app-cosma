@@ -4,6 +4,10 @@ from django.shortcuts import get_object_or_404, redirect
 
 from products.models import Product
 from .models import CartItem
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
+
+from accounts.customer import CustomerRequiredMixin
 # Create your views here.
 
 
@@ -69,3 +73,12 @@ def cart_view(request):
     return render(request, 'cart.html', {
         'cart_items': cart_items
     })
+
+
+class RemoveFromCartView (CustomerRequiredMixin, DeleteView):
+    model = CartItem
+    template_name = 'remove_from_cart.html'
+    success_url = reverse_lazy('cart:cart')
+
+    def get_queryset(self):
+        return CartItem.objects.filter(user=self.request.user)

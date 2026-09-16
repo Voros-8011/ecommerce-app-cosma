@@ -15,4 +15,5 @@ urlpatterns = [
         views.decrease_quantity,
         name='decrease_quantity'
     ),
+    path('remove/<int:pk>/', views.RemoveFromCartView.as_view(), name='remove_from_cart'),
 ]
